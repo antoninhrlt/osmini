@@ -34,6 +34,11 @@ start:
     xor ax, ax
     int 0x13 ; call to the BIOS
 
+    push es
+    
+    mov ax, BASE
+    mov es, ax
+    mov bx, 0
     mov ah, 2
     mov al, KSIZE
     mov ch, 0
