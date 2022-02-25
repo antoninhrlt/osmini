@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 
 [lib]
-path = "../src/core/lib.rs"
+path = "../src/core/core.rs"
 crate-type = ["staticlib"]
 
 [profile.dev]

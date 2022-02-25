@@ -29,7 +29,7 @@ clean :
 	rm -rf build/out/
 
 # Create the system image file
-$(IMG) : $(BOOT) $(LOADER) $(CORE)
+$(IMG) : $(BOOT) $(CORE)
 	cat $^ /dev/zero | dd of=$@ bs=512 count=2880 
 
 # Boot loader
