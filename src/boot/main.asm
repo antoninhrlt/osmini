@@ -35,7 +35,7 @@ start:
     int 0x13 ; call to the BIOS
 
     push es
-    
+
     mov ax, BASE
     mov es, ax
     mov bx, 0
@@ -48,6 +48,9 @@ start:
     int 0x13 ; call to the BIOS
 
     pop es
+
+    mov si, gdt_msg
+    call print_str
 
     ; Initialization of the GDT pointer
 
@@ -66,6 +69,9 @@ start:
     mov bx, gdt
     add ecx, ebx
     mov dword [gdt_ptr + 2], ecx
+
+    mov si, mode_msg
+    call print_str
 
     ; Protected mode
     cli
@@ -88,6 +94,9 @@ start:
 
 ; ---
 hello_msg: db "osmini % Core loading", 13, 10, 0
+gdt_msg: db "osmini % GDT initializing", 13, 10, 0
+mode_msg: db "osmini % Protected mode entering", 13, 10, 0
+
 bootdrv: db 0
 
 gdt:
