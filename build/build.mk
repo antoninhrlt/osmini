@@ -18,7 +18,7 @@ _release : $(IMG)
 	cp $< bin/
 
 _init :
-	mkdir build/out/
+	mkdir -p build/out/
 
 build : _init $(IMG)
 
