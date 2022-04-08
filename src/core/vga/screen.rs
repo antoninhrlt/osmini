@@ -3,58 +3,38 @@
 // Copyright (c) Antonin Hérault
 
 use crate::{
-    utils::{
-        buffer::Buffer,
-        point::Point,
-    },
     vga::{
-        VGA_ADDRESS, VGA_WIDTH, VGA_HEIGHT,
-        color::{Color, to_vga_color},
+        VGA_ADDRESS,
+        color::{
+            Color, 
+            to_vga_color
+        },
+        cursor::Cursor,
     },
 };
 
 /// Structure to manage the VGA screen
 pub struct Screen {
-    vga_buffer: Buffer<u8>,
-    cursor: Point,
-    colors: (Color, Color),
+    vga: *mut u8,
+    cursor: Cursor,
 }
 
 impl Screen {
     pub fn new() -> Self {
         Self {
-            vga_buffer: Buffer::from_addr(VGA_ADDRESS, VGA_WIDTH, VGA_HEIGHT),
-            cursor: Point{x: 0, y: 0},
-            colors: (Color::Green, Color::Black),
+            vga: VGA_ADDRESS as *mut u8,
+            cursor: Cursor::new(),
         }
     }
 
     /// Draw a char onto the screen at the chosen position
-    pub fn write_char(&mut self, what: u8) {
-        // Write the character
-        self.vga_buffer.write(&Point{x: 1, y: 0}, what);
-        //self.cursor.x += 1;
+    pub unsafe fn write_char(&mut self, what: u8) {
+        // Write the character at the current cursor position
+        *(self.vga.add(0)) = b'A';
+        self.cursor.increment(1);
 
         // Write the character's colors
-        self.vga_buffer.write(
-            &Point{x: 1, y: 0}, 
-            to_vga_color(self.colors.0, self.colors.1)
-        );
-        //self.cursor.x += 1;
-    }
-
-    pub fn write_str(&mut self, what: &[u8]) {
-        // let mut pos = Point{
-        //     x: start_pos.x, 
-        //     y: start_pos.y
-        // };
-
-        // for c in what {
-        //     pos.x += 1;
-        //     if *c == b'\n' {
-        //         pos.y += 1;
-        //     }
-        //     self.write_char(Point{x: pos.x, y: pos.y}, *c);
-        // }
+        *(self.vga.add(1)) = 0x02; //to_vga_color(Color::White, Color::Black);
+        self.cursor.increment(1);
     }
 }

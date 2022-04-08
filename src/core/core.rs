@@ -9,29 +9,29 @@
 /// "Called" by the bootloader at address 0x1000
 #[no_mangle]
 pub extern "C" fn _start() {
-    main();
+    unsafe { main(); }
     loop {}
 }
 
-fn main() {
+unsafe fn main() {
     let mut screen = Screen::new();
-    //screen.write_char(b'B');
+    screen.write_char(b'A');
 
-    unsafe {
-        *(0xB8000 as *mut u8) = b'o';
-        *(0xB8001 as *mut u8) = 0x02;
-    };
+    // unsafe {
+    //     let vga: *mut u8 = 0xB8000 as *mut u8;
+    //     *(vga.add(0)) = b'A';
+    //     *(vga.add(1)) = 0x02;
+    //     *(vga.add(2)) = b'b';
+    //     *(vga.add(3)) = 0x02;
+    // }
 }
 
-pub mod utils;
 pub mod vga;
 
 use crate::{
-    utils::{
-        point::Point,
-    },
     vga::{
         color::{Color, to_vga_color},
+        cursor::Cursor,
         screen::Screen,
     },
 };

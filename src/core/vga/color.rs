@@ -33,5 +33,5 @@ pub enum Color {
 /// 0xXY, where `X` = background, and `Y` = foreground \
 /// Example: 0x02, where the background is black and foreground is green
 pub fn to_vga_color(fg: Color, bg: Color) -> u8 {
-    todo!()
+    0x02 // todo!()
 }

@@ -7,4 +7,5 @@ pub const VGA_WIDTH: usize = 80;
 pub const VGA_HEIGHT: usize = 25;
 
 pub mod color;
+pub mod cursor;
 pub mod screen;
