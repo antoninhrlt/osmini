@@ -6,7 +6,7 @@ ASM = nasm
 LINKER = ld
 RUST = rustc
 
-OUT_DIR = build/
+OUT_DIR = build
 
 IMG = $(OUT_DIR)/osmini.img
 BOOT = $(OUT_DIR)/bootloader
@@ -43,8 +43,10 @@ $(CORE) : $(LIB_CORE)
 	$(LINKER) --oformat binary -Ttext 1000 -o $@ $^
 
 $(LIB_CORE) : 
-	(cd build/ && cargo build)
-	mv $(OUT_DIR)/debug/libcore.a $(OUT_DIR)/libcore.a
+	rustup default nightly
+	rustup component add rust-src
+	xargo build
+	mv $(OUT_DIR)/target/debug/libcore.a $(OUT_DIR)/libcore.a
 
 .SILENT : help
 help :
