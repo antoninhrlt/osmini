@@ -30,7 +30,7 @@ impl Cursor {
         }
 
         if self.y >= VGA_HEIGHT {
-            todo!("test"); 
+            // TODO : Scroll the window
         }
     }
 

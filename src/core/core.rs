@@ -2,20 +2,22 @@
 // Under the MIT License
 // Copyright (c) Antonin Hérault
 
-#![no_std]
 #![no_main]
+#![no_std]
 
 /// Entry point of the system's core
 /// "Called" by the bootloader at address 0x1000
 #[no_mangle]
-pub extern "C" fn _start() {
-    unsafe { main(); }
+pub extern "C" fn _start() -> ! {
+    unsafe {
+        main();
+    }
     loop {}
 }
 
 unsafe fn main() {
-    let mut screen = Screen::new();
-    screen.write_char(b'A');
+    // let mut screen = Screen::new();
+    // screen.write_char(b'A');
 
     // unsafe {
     //     let vga: *mut u8 = 0xB8000 as *mut u8;
@@ -36,7 +38,9 @@ use crate::{
     },
 };
 
-/// Panic handler because of #[no_std]
+/// Panic handler because of #[no_std] \
+/// Called when `panic!()` \
+/// NOTE `PanicInfo` is from Rust's core module
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
     loop {}
