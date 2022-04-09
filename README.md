@@ -1,16 +1,15 @@
 # osmini
-Simple operating system with GUI and terminal, written in Rust and x64 Assembly
-
-## Releases
-The binary/image files are placed into the "bin/" folder. \
-Releases on Github [here](https://github.com/antoninhrlt/osmini/releases).
+Mini operating system with GUI and terminal, written in Rust and x64 Assembly
 
 ## Build
-This project uses `make` for building.
+At first, install [`rust`](https://www.rust-lang.org/tools/install) and its
+tools, `make`, `nasm` and `ld`
 
-Run `make help` in your command line to know the available options for this 
-project and to see needed dependencies.
+Run in your command shell : `make build` or 
 
-## Contributors
-I'm looking for new contributors for this project, 
-[send me an email](mailto:antonherault@gmail.com) to ask me to join the project
+> To run the system in `qemu`, do : `make run` \
+> Needed package : `qemu-system-x86_64`
+
+## Releases
+The binary files are in the "bin/" folder \
+Releases on Github [here](https://github.com/antoninhrlt/osmini/releases).
