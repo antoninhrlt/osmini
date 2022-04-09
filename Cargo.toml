@@ -1,12 +1,13 @@
 [package]
 name = "core"
+authors = ["Antonin Hérault <antonherault@gmail.com>"]
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 
 [lib]
-path = "../src/core/core.rs"
+path = "src/core/core.rs"
 crate-type = ["staticlib"]
 
 [profile.dev]
