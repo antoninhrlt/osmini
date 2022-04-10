@@ -2,19 +2,25 @@
 // Under the MIT License
 // Copyright (c) Antonin Hérault
 
-/// Video memory start pointer
-static mut CURSOR_X: usize = 0;
+use crate::vga::{
+    VGA_ADDRESS,
+    buffer::Buffer,
+};
 
-unsafe fn print_char(c: u8) {
-    let vga: *mut u8 = (0xB8000 as *mut u8).add(2 * CURSOR_X);
-    *vga = c;
-    *(vga.add(1)) = 0x0E; // color
-    CURSOR_X += 1; 
+pub struct Printer {
+    buffer: &'static mut Buffer,
+    pos_x: usize,
 }
 
-#[no_mangle]
-pub unsafe fn print_str(string: &[u8]) {
-    for c in string {
-        print_char(*c);
+impl Printer {
+    pub unsafe fn new() -> Self {
+        Self {
+            buffer: &mut *(VGA_ADDRESS as *mut Buffer),
+            pos_x: 0,
+        }
     }
-}    
+
+    pub unsafe fn print(&mut self, string: &[u8]) {
+        
+    }
+} 

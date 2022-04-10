@@ -8,7 +8,7 @@
 /// Nothing should be put before `_start` \
 /// Called by the bootloader at 0x1000
 #[no_mangle]
-pub extern "C" fn _start() {
+pub extern "C" fn _start() -> ! {
     unsafe {
         main();
     }
@@ -16,15 +16,22 @@ pub extern "C" fn _start() {
 }
 
 unsafe fn main() {
-    // test_hi();
+    test_hi();
+    
+    let mut printer = Printer::new();
+    printer.print(b"AB");
 }
 
-/// ASM functions
+// ASM functions
 extern "C" {
     fn test_hi();
 } 
 
 pub mod vga;
+use vga::{
+    VGA_ADDRESS,
+    print::*,
+};
 
 /// Called when `panic!()` \
 /// NOTE `PanicInfo` is from Rust's core module
