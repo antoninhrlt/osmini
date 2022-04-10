@@ -9,8 +9,8 @@ RUST = rustc
 OUT_DIR = build
 
 IMG = $(OUT_DIR)/osmini.img
-BOOT = $(OUT_DIR)/bootloader
-CORE = $(OUT_DIR)/core
+BOOT = $(OUT_DIR)/bootloader.out
+CORE = $(OUT_DIR)/core.out
 
 # Private function to simplify the release creation
 # Should not be used by another one than the repository's owner
@@ -18,7 +18,7 @@ _release : $(IMG)
 	cp $< bin/
 
 _init :
-	mkdir -p $(OUT_DIR)
+	mkdir -p $(OUT_DIR) $(OUT_DIR)/core/
 
 build : _init $(IMG)
 
@@ -37,16 +37,21 @@ $(BOOT) : src/boot/main.asm
 	$(ASM) -f bin -I src/boot/ -o $@ $^
 
 # System core
-LIB_CORE = $(OUT_DIR)/libcore.a
+CORERS = build/osmini/debug/libcorers.a
+CORE_SRC = $(wildcard src/core/*.asm) 
+CORE_OBJ = $(patsubst src/core/%.asm, $(OUT_DIR)/core/%.o, $(CORE_SRC))
 
-$(CORE) : $(LIB_CORE)
+# ASM and Rust object files linked
+$(CORE) : $(CORERS) $(CORE_OBJ)
 	$(LINKER) --oformat binary -Ttext 1000 -o $@ $^
 
-$(LIB_CORE) : 
-	rustup default nightly
-	rustup component add rust-src
-	xargo build
-	mv $(OUT_DIR)/target/debug/libcore.a $(OUT_DIR)/libcore.a
+# ASM files for core
+$(OUT_DIR)/core/%.o : src/core/%.asm
+	$(ASM) -f elf64 -I src/core/ -o $@ $<
+
+# Rust files for core
+$(CORERS) : $(wildcard src/core/*.rs)
+	cargo build
 
 .SILENT : help
 help :
