@@ -3,9 +3,6 @@
 // Copyright (c) Antonin Hérault
 
 pub const VGA_ADDRESS: u32 = 0xB8000;
-pub const VGA_WIDTH: usize = 80;
-pub const VGA_HEIGHT: usize = 25;
 
-pub mod color;
-pub mod cursor;
-pub mod screen;
+pub mod colors;
+pub mod print;
