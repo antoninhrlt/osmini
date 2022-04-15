@@ -1,15 +1,23 @@
 # osmini
-Mini operating system with GUI and terminal, written in Rust and x64 Assembly
+Mini operating system with a graphical interface, for x64 platforms, in Rust and Assembly 
 
 ## Build
-At first, install [`rust`](https://www.rust-lang.org/tools/install) and its
-tools, `make`, `nasm` and `ld`
+Don't forget to install the [dependencies](#requirements).
 
-Run in your command shell : `make build` or 
+This project is delivered with its own project builder : the file "build.py" at
+the repository's root. \
+To build : `python3 build.py build` \
+Build and run onto "qemu" : `python3 build.py run` [*](#other-dependencies)
 
-> To run the system in `qemu`, do : `make run` \
-> Needed package : `qemu-system-x86_64`
+> NOTE : If you run "build.py" without arguments, it will do nothing
 
-## Releases
-The binary files are in the "bin/" folder \
-Releases on Github [here](https://github.com/antoninhrlt/osmini/releases).
+## Dependencies
+Project to build on a Linux platform
+- [rust](https://www.rust-lang.org/) (and associated tools)
+- ld (in `binutils` for Ubuntu)
+- gcc
+- nasm
+- python3 (for build file)
+- ### Other dependencies
+  - [qemu](https://www.qemu.org/download/)
+  - qemu-system (for package `qemu-system-x86_64`)
