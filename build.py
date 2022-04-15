@@ -6,6 +6,7 @@
 
 import sys
 import subprocess
+import os
 
 
 OUT_DIR = "target/debug"
@@ -19,16 +20,18 @@ IMAGE_OUT = OUT_DIR + "/osmini.img"
 
 
 def build():
-    subprocess.run(["cargo", "build"])
+    if subprocess.run(["cargo", "build"]).returncode != 0:
+        return 1
 
-    subprocess.run([
+    if subprocess.run([
         "ld",
         "-o", SYSTEM_OUT,
         "--oformat", "binary",
         "-Ttext", "1000",
         SYSCORE_OUT,
         SYSLIB_OUT
-    ])
+    ]).returncode != 0:
+        return 1
 
     cat = subprocess.Popen([
         "cat",
@@ -45,8 +48,12 @@ def build():
     ], stdin=cat.stdout, stdout=subprocess.PIPE)
 
     cat.stdout.close()
-    
     dd.communicate()[0]
+
+    if dd.returncode != 0:
+        return 1
+
+    return 0
 
 
 def run():
@@ -57,9 +64,16 @@ def run():
     ])
 
 
+def clean():
+    os.rmdir("target/")
+
+
+if "clean" in sys.argv:
+    clean()
+
 if "build" in sys.argv:
     build()
 
 if "run" in sys.argv:
-    build()
-    run()
+    if build() == 0:
+        run()
