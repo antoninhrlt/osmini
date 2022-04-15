@@ -8,7 +8,7 @@ use std::process::Command;
 static ASM: &str = "nasm";
 
 fn main() {
-    let out_dir = "../target/debug";
+    let out_dir = "../target/x64osmini/debug";
     let bootloader: &str = "src/boot.asm";
     let bootloader_out: String = format!("{}/bootloader.o", out_dir);
 

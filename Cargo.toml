@@ -1,2 +1,8 @@
 [workspace]
 members = ["bootloader", "syslib", "syscore"]
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
