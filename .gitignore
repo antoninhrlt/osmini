@@ -1,3 +1,5 @@
-build/
-*.ignore
-Cargo.lock
+# If you take a look to my other projects, I took the habit to create a config
+# folder for cargo where the target path is "build/" but a folder named "build"
+# is placed between the "bootloader" folder and the "sys..." folders, "target/"
+# folder is separately placed so it's prettier
+target/

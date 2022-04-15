@@ -1,12 +1,2 @@
-[package]
-name = "corers"
-authors = ["Antonin Hérault <antonherault@gmail.com>"]
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-# nothing
-
-[lib]
-path = "src/core/lib.rs"
-crate-type = ["staticlib"]
+[workspace]
+members = ["bootloader", "syslib", "syscore"]

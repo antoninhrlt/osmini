@@ -1,6 +1,6 @@
 ; This file is part of "osmini"
 ; Under the MIT License
-; Copyright (c) Antonin Hérault
+; Copyright (c) 2022 Antonin Hérault
 
 ;
 ; Print functions for the bootloader

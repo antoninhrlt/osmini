@@ -1,6 +1,6 @@
 ; This file is part of "osmini"
 ; Under the MIT License
-; Copyright (c) Antonin Hérault
+; Copyright (c) 2022 Antonin Hérault
 
 bits 16 ; default mode for instruction coding and data
 org 0x0 ; offset to add to each referenced address
@@ -8,6 +8,8 @@ org 0x0 ; offset to add to each referenced address
 %define BASE 0x100
 %define KSIZE 50 ;  512 Bytes sectors to load
 
+    global _bootloader
+_bootloader:
     jmp start
 
 %include "printer.asm"
