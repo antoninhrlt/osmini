@@ -2,14 +2,12 @@
 Mini operating system with a graphical interface, for x64 platforms, in Rust and Assembly 
 
 ## Build
-Don't forget to install the [dependencies](#requirements).
+Don't forget to install the [dependencies](#dependencies).
 
 This project is delivered with its own project builder : the file "build.py" at
 the repository's root. \
-To build : `python3 build.py build` \
-Build and run onto "qemu" : `python3 build.py run` [*](#other-dependencies)
-
-> NOTE : If you run "build.py" without arguments, it will do nothing
+To build : `make build` \
+Build and run onto "qemu" : `make run` [*](#other-dependencies)
 
 ## Dependencies
 Project to build on a Linux platform
@@ -17,7 +15,7 @@ Project to build on a Linux platform
 - ld (in `binutils` for Ubuntu)
 - gcc
 - nasm
-- python3 (for build file)
+- make
 - ### Other dependencies
   - [qemu](https://www.qemu.org/download/)
   - qemu-system (for package `qemu-system-x86_64`)
