@@ -2,7 +2,7 @@
 # Under the MIT License
 # Copyright (c) 2022 Antonin Hérault
 
-OUT_DIR = target/x64osmini/debug/
+OUT_DIR = target/x64osmini/debug
 
 BOOTLOADER_OUT = $(OUT_DIR)/bootloader.o
 SYSCORE_OUT = $(OUT_DIR)/libsyscore.a
@@ -13,7 +13,10 @@ IMAGE_OUT = $(OUT_DIR)/osmini.img
 
 build : 
 	cargo build
-	ld -o $(SYSTEM_OUT) --oformat binary -Ttext 1000 $(SYSCORE_OUT) $(SYSLIB_OUT)
+	ld -o $(SYSTEM_OUT) --oformat binary -Ttext 1000 \
+		$(SYSCORE_OUT) \
+		$(wildcard $(OUT_DIR)/syslib.*/*.o) 
+	
 	cat $(BOOTLOADER_OUT) $(SYSTEM_OUT) /dev/zero | dd of=$(IMAGE_OUT) bs=512 count=2880
 
 run : build

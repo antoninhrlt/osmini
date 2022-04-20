@@ -1,5 +1,5 @@
 [workspace]
-members = ["bootloader", "syslib", "syscore"]
+members = ["bootloader", "syscore", "syslib"]
 
 [profile.dev]
 panic = "abort"

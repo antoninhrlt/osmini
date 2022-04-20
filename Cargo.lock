@@ -9,6 +9,9 @@ version = "0.1.0"
 [[package]]
 name = "syscore"
 version = "0.1.0"
+dependencies = [
+ "syslib",
+]
 
 [[package]]
 name = "syslib"
