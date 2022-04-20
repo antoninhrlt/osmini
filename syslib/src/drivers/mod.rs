@@ -2,7 +2,4 @@
 // Under the MIT License
 // Copyright (c) 2022 Antonin Hérault
 
-#![no_std]
-
-pub mod drivers;
-pub mod screen;
+pub mod cursor;
